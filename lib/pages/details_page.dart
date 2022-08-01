@@ -7,15 +7,16 @@ import 'package:prjkode/theme/app_colors.dart';
 import '../components/character_card.dart';
 import '../data/repository.dart';
 import '../models/character_model.dart';
+import '../models/detailed_character.dart';
 
 class DetailsPage extends StatefulWidget {
   static const routeId = '/details';
-  DetailsPage({
+  const DetailsPage({
     Key? key,
-    required int characterId,
+    required this.characterId,
   }) : super(key: key);
 
-  late Results model;
+  final int characterId;
 
   @override
   State<DetailsPage> createState() => _DetailsPageState();
@@ -32,86 +33,140 @@ class _DetailsPageState extends State<DetailsPage> {
 
   @override
   Widget build(BuildContext context) {
-    // final date = DateTime.parse(model.created!);
-
-    // final locationName =
-    //     model.location!.map((location) => location.name);
-    // final allCompanies =
-    //     locationName.reduce((value, element) => value + ', ' + element);
-
-    return Card(
-      color: AppColors.primaryColorLight,
-      clipBehavior: Clip.antiAlias,
-      margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 7.5),
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.all(Radius.circular(10)),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Image.network(
-            widget.model.image!,
+    return Scaffold(
+      appBar: AppBarWidget(
+        leftIcon: GestureDetector(
+          onTap: () => Navigator.pop(context),
+          child: const Icon(
+            Icons.arrow_back_ios,
+            color: AppColors.white,
           ),
-          Padding(
-            padding:
-                const EdgeInsets.only(top: 12, left: 16, right: 16, bottom: 20),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  "${widget.model.name?.toUpperCase()}",
-                  style: const TextStyle(
-                    color: AppColors.white,
-                    fontWeight: FontWeight.w900,
-                    fontSize: 14.5,
+        ),
+      ),
+      backgroundColor: AppColors.backgroundColor,
+      body: Card(
+        color: AppColors.primaryColorLight,
+        clipBehavior: Clip.antiAlias,
+        margin: const EdgeInsets.only(top: 17, right: 20, left: 20, bottom: 60),
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(10)),
+        ),
+        child: FutureBuilder<DetailedCharacter>(
+            future: Repository().getCharacterDetails(widget.characterId),
+            builder: (context, snapshot) {
+              if (!snapshot.hasData) {
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              } else {
+                final model = snapshot.data!;
+                return Center(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(10),
+                        child: Image.network(
+                          model.image,
+                          height: 200,
+                          width: 372,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(
+                            top: 12, left: 16, right: 16, bottom: 0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const SizedBox(height: 10),
+                            Text(
+                              "${model.name?.toUpperCase()}",
+                              style: const TextStyle(
+                                color: AppColors.white,
+                                fontWeight: FontWeight.w900,
+                                fontSize: 14.5,
+                              ),
+                            ),
+                            const SizedBox(height: 38),
+                            Row(
+                              children: [
+                                Container(
+                                  height: 7,
+                                  width: 7,
+                                  decoration: BoxDecoration(
+                                    color: statusColor(model),
+                                    shape: BoxShape.circle,
+                                  ),
+                                ),
+                                const SizedBox(width: 5),
+                                Text(
+                                  "${model.status} - ${model.species}",
+                                  style: const TextStyle(
+                                    color: AppColors.white,
+                                    fontWeight: FontWeight.w700,
+                                    fontSize: 14.5,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: 15),
+                            const Text(
+                              'Last know location:',
+                              style: TextStyle(
+                                fontSize: 12.5,
+                                color: AppColors.white,
+                              ),
+                            ),
+                            const SizedBox(height: 5),
+                            Text(
+                              model.location.name,
+                              style: const TextStyle(
+                                color: AppColors.white,
+                                fontWeight: FontWeight.w700,
+                                fontSize: 14.5,
+                              ),
+                            ),
+                            const SizedBox(height: 15),
+                            const Text(
+                              'First seen in:',
+                              style: TextStyle(
+                                fontSize: 12.5,
+                                color: AppColors.white,
+                              ),
+                            ),
+                            const SizedBox(height: 5),
+                            Text(
+                              model.episode.first,
+                              style: const TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 12.5,
+                                color: AppColors.white,
+                              ),
+                            ),
+                          ],
+                        ),
+                      )
+                    ],
                   ),
-                ),
-                const SizedBox(height: 15),
-                // Wrap(
-                //   spacing: 10,
-                //   runSpacing: 10,
-                //   children: detailedPage.model.!
-                //       .map(
-                //         (genre) => Chip(
-                //           backgroundColor: AppColors.primaryColorLight,
-                //           labelStyle: TextStyle(color: AppColors.white),
-                //           side: BorderSide(color: AppColors.white),
-                //           label: Text(genre.name),
-                //         ),
-                //       )
-                //       .toList(),
-                // ),
-                const SizedBox(height: 15),
-                Text(
-                  widget.model.name!,
-                  style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 12.5,
-                    color: AppColors.white,
-                  ),
-                ),
-                const SizedBox(height: 15),
-                const Text(
-                  'Production Companies:',
-                  style: TextStyle(
-                    fontSize: 12.5,
-                    color: AppColors.white,
-                  ),
-                ),
-                // Text(
-                //   allCompanies,
-                //   style: TextStyle(
-                //     fontWeight: FontWeight.bold,
-                //     fontSize: 12.5,
-                //     color: AppColors.white,
-                //   ),
-                // ),
-              ],
-            ),
-          )
-        ],
+                );
+              }
+            }),
       ),
     );
+  }
+
+  Color statusColor(model) {
+    switch (model.status?.toLowerCase()) {
+      case 'alive':
+        return AppColors.green;
+      case 'dead':
+        return Colors.red;
+      case 'unknown':
+        return Colors.blueGrey;
+      default:
+        return Colors.blueGrey;
+    }
   }
 }
 
@@ -147,15 +202,7 @@ class _DetailsPageState extends State<DetailsPage> {
 //     size = MediaQuery.of(context).size;
 
 //     return Scaffold(
-//       appBar: AppBarWidget(
-//         leftIcon: GestureDetector(
-//           onTap: () => Navigator.pop(context),
-//           child: const Icon(
-//             Icons.arrow_back_ios,
-//             color: AppColors.white,
-//           ),
-//         ),
-//       ),
+
       
 //       backgroundColor: AppColors.backgroundColor,
 //       body: FutureBuilder<CharacterModel>(
