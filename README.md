@@ -9,3 +9,6 @@ Desenvolvimento da versão inicial do aplicativo em Flutter para fãs de Rick & 
 ## Imagens do projeto realizado
 
 
+## Gif do projeto realizado
+
+
