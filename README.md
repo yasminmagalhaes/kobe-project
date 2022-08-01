@@ -1,16 +1,11 @@
-# prjokde
+# Projeto Kode Start
 
-A new Flutter project.
+Projeto de Flutter desenvolvido para o Kode Start.
 
-## Getting Started
+## Sobre o projeto
 
-This project is a starting point for a Flutter application.
+Desenvolvimento da versão inicial do aplicativo em Flutter para fãs de Rick & Morty, com exibição de personagens e detalhamento de cada um, tendo seu conteúdo sendo alimentado pela documentação da "The Rick and Morty API".
 
-A few resources to get you started if this is your first Flutter project:
+## Imagens do projeto realizado
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
