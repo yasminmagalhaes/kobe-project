@@ -1,7 +1,5 @@
 import 'package:prjkode/data/character_controller.dart';
-import 'package:prjkode/data/repository.dart';
 import 'package:prjkode/models/character_model.dart';
-import 'package:prjkode/pages/details_page.dart';
 import 'package:prjkode/theme/app_bar_widget.dart';
 import 'package:prjkode/theme/app_colors.dart';
 import 'package:flutter/material.dart';

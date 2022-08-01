@@ -1,10 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:prjkode/theme/app_bar_widget.dart';
 import 'package:prjkode/theme/app_colors.dart';
-import '../components/character_card.dart';
 import '../data/repository.dart';
 import '../models/character_model.dart';
 import '../models/detailed_character.dart';
@@ -169,63 +166,3 @@ class _DetailsPageState extends State<DetailsPage> {
     }
   }
 }
-
-
-
-
-// class DetailsPage extends StatefulWidget {
-//   static const routeId = '/details';
-
-//   final int model;
-
-//   const DetailsPage({
-//     Key? key,
-//     required this.model,
-//   }) : super(key: key);
-
-//   @override
-//   State<DetailsPage> createState() => _DetailsPageState();
-// }
-
-// class _DetailsPageState extends State<DetailsPage> {
-//   Future<CharacterModel>? character;
-//   late Size size;
-
-//   @override
-//   void initState() {
-//     character = Repository.getCharacter();
-//     super.initState();
-//   }
-
-//   @override
-//   Widget build(BuildContext context) {
-//     size = MediaQuery.of(context).size;
-
-//     return Scaffold(
-
-      
-//       backgroundColor: AppColors.backgroundColor,
-//       body: FutureBuilder<CharacterModel>(
-//         builder: (_, snapshot) {
-//       Container(
-//         margin: const EdgeInsets.only(left: 20, right: 20, top: 20),
-//         padding: const EdgeInsets.all(0),
-//         decoration: BoxDecoration(borderRadius: BorderRadius.circular(10)),
-//         child: Stack(
-//           children: [
-//             ClipRRect(
-//               borderRadius: BorderRadius.circular(10),
-//               child: Image.network(
-//                 widget.model.image!,
-//                 height: 200,
-//                 width: size.width,
-//                 fit: BoxFit.cover,
-//               ),
-//             ),
-//           ],
-//         ),
-//       );
-      
-//     );
-//   }
-// }

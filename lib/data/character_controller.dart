@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:prjkode/data/repository.dart';
-
 import '../models/character_model.dart';
 
 class CharacterController {
